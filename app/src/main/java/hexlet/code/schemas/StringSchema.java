@@ -1,8 +1,6 @@
 package hexlet.code.schemas;
 
-import hexlet.code.Validator;
-
-public class StringSchema extends Validator {
+public class StringSchema extends BaseSchema {
 
     boolean isValid = true;
     int minLength;

@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ public class ValidatorTest {
 
         schema.required();
 
-        assertThat(false).isEqualTo(schema.isValid(null));
+        assertThat(schema.isValid(null)).isEqualTo(false);
         assertThat(schema.isValid("")).isEqualTo(false);
         assertThat(schema.isValid(5)).isEqualTo(false);
         assertThat(schema.isValid("what does the fox say")).isEqualTo(true);
@@ -31,5 +32,29 @@ public class ValidatorTest {
 
         schema.minLength(4);
         assertThat(schema.isValid("what does the fox say")).isEqualTo(false);
+    }
+
+    @Test
+    public void testValidatorNumberSchema() {
+
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
+
+        assertThat(schema.isValid(null)).isEqualTo(true);
+        schema.positive();
+        assertThat(schema.isValid(null)).isEqualTo(true);
+
+        schema.required();
+        assertThat(schema.isValid(null)).isEqualTo(false);
+        assertThat(schema.isValid("5")).isEqualTo(false);
+        assertThat(schema.isValid(10)).isEqualTo(true);
+        assertThat(schema.isValid(-10)).isEqualTo(false);
+        assertThat(schema.isValid(0)).isEqualTo(false);
+
+        schema.range(5, 10);
+        assertThat(schema.isValid(5)).isEqualTo(true);
+        assertThat(schema.isValid(10)).isEqualTo(true);
+        assertThat(schema.isValid(4)).isEqualTo(false);
+        assertThat(schema.isValid(11)).isEqualTo(false);
     }
 }
