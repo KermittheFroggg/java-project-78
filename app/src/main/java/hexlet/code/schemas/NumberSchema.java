@@ -8,7 +8,7 @@ public class NumberSchema extends BaseSchema {
     boolean required = false;
     boolean positive = false;
 
-    List<Integer> range = new ArrayList<>();
+    public List<Integer> range = new ArrayList<>();
 
     public NumberSchema() {
     }
@@ -17,16 +17,22 @@ public class NumberSchema extends BaseSchema {
         this.required = true;
     }
 
-    public boolean isRequired() {
-        return required;
+    public boolean isRequired(Object obj) {
+        if (required && obj == null) {
+            return false;
+        }
+        return true;
     }
 
     public void positive() {
         this.positive = true;
     }
 
-    public boolean isPositive() {
-        return positive;
+    public boolean isPositive(Object obj) {
+        if (positive && ((Integer) obj > 0)) {
+            return true;
+        }
+        return false;
     }
 
     public void range(int begin, int end) {
@@ -35,31 +41,34 @@ public class NumberSchema extends BaseSchema {
         }
     }
 
-    public List<Integer> getRange() {
-        return range;
+    public boolean isInRange(Object obj) {
+        if (range.contains(obj)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isNotNumber(Object obj) {
+        if (obj instanceof Integer) {
+            return false;
+        }
+        return true;
     }
 
     public boolean isValid(Object number) {
-        this.isValid = true;
         if (number != null) {
-            if (!(number instanceof Integer)) {
+            if (isNotNumber(number)) {
                 return false;
             }
-            if (isPositive() && ((Integer) number <= 0)) {
-                setIsValidFalse();
+            if (positive) {
+                this.isValid = isPositive(number);
             }
-            if (!getRange().isEmpty() && !range.contains(number)) {
-                setIsValidFalse();
+            if (!range.isEmpty()) {
+                this.isValid = isInRange(number);
             }
         } else {
-            if (isRequired()) {
-                setIsValidFalse();
-            }
+            this.isValid = isRequired(null);
         }
-        return isValid;
-    }
-
-    private void setIsValidFalse() {
-        this.isValid = false;
+        return this.isValid;
     }
 }

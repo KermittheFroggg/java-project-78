@@ -22,42 +22,51 @@ public class StringSchema extends BaseSchema {
         this.subString = suBstr;
     }
 
-    public int getMinLength() {
-        return minLength;
+    public boolean isMinLength(Object obj) {
+        if (String.valueOf(obj).length() > minLength) {
+            return true;
+        }
+        return false;
     }
 
-    public String getSubString() {
-        return subString;
+    public boolean containsSubString(Object obj) {
+        if (String.valueOf(obj).contains(subString)) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean isRequired() {
-        return required;
+    public boolean isRequired(Object obj) {
+        if (required && (obj == null || String.valueOf(obj).equals(""))) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isNotString(Object obj) {
+        if (obj instanceof String) {
+            return false;
+        }
+        return true;
     }
 
     public boolean isValid(Object string) {
-        this.isValid = true;
         if (string != null) {
-            if (!(string instanceof String)) {
-                setIsValidFalse();
+            if (isNotString(string)) {
+                return false;
             }
-            if (getMinLength() > String.valueOf(string).length()) {
-                setIsValidFalse();
+            if (minLength != 0) {
+                this.isValid = isMinLength(string);
             }
-            if (!(string.toString().contains(getSubString()))) {
-                setIsValidFalse();
+            if (subString.equals("")) {
+                this.isValid = isRequired(string);
             }
-            if (isRequired() && string.toString().equals("")) {
-                setIsValidFalse();
+            if (!subString.equals("")) {
+                this.isValid = containsSubString(string);
             }
         } else {
-            if (isRequired()) {
-                setIsValidFalse();
-            }
+            isValid = isRequired(null);
         }
         return isValid;
-    }
-
-    private void setIsValidFalse() {
-        this.isValid = false;
     }
 }
