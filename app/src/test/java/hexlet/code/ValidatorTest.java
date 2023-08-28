@@ -37,6 +37,10 @@ public class ValidatorTest {
 
         schema.minLength(4);
         assertThat(schema.isValid("what does the fox say")).isEqualTo(false);
+
+        assertThat(schema.isValid("wha")).isEqualTo(false);
+        assertThat(schema.isValid(null)).isEqualTo(false);
+        assertThat(schema.isValid("")).isEqualTo(false);
     }
 
     @Test
@@ -46,8 +50,7 @@ public class ValidatorTest {
         NumberSchema schema = v.number();
 
         assertThat(schema.isValid(null)).isEqualTo(true);
-        schema.positive();
-        assertThat(schema.isValid(null)).isEqualTo(true);
+        assertThat(schema.positive().isValid(null)).isEqualTo(true);
 
         schema.required();
         assertThat(schema.isValid(null)).isEqualTo(false);
@@ -61,8 +64,31 @@ public class ValidatorTest {
         assertThat(schema.isValid(10)).isEqualTo(true);
         assertThat(schema.isValid(4)).isEqualTo(false);
         assertThat(schema.isValid(11)).isEqualTo(false);
-    }
 
+        assertThat(schema.isValid(null)).isEqualTo(false);
+        assertThat(schema.isValid("фыафы")).isEqualTo(false);
+        assertThat(schema.isValid(20)).isEqualTo(false);
+        assertThat(schema.isValid(9)).isEqualTo(true);
+
+        schema.range(0, 17);
+        assertThat(schema.isValid(4)).isEqualTo(true);
+        assertThat(schema.isValid(23)).isEqualTo(false);
+    }
+    @Test
+    public void testValidatorNumberSchema2() {
+
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
+
+        assertThat(schema.isValid("5")).isEqualTo(false);
+        assertThat(schema.isValid(10)).isEqualTo(true);
+        assertThat(schema.isValid(-10)).isEqualTo(true);
+
+        assertThat(schema.positive().isValid(null)).isEqualTo(true);
+        assertThat(schema.positive().required().isValid(null)).isEqualTo(false);
+
+
+    }
     @Test
     public void testValidatorMapSchema() {
         Validator v = new Validator();

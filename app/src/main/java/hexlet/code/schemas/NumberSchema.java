@@ -25,7 +25,7 @@ public class NumberSchema extends BaseSchema {
         return true;
     }
 
-    public BaseSchema positive() {
+    public NumberSchema positive() {
         this.positive = true;
         return this;
     }
