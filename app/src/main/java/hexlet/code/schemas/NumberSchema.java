@@ -70,8 +70,11 @@ public class NumberSchema extends BaseSchema {
             if (!range.isEmpty()) {
                 this.isValid = isInRange(number);
             }
+            if (positive && !range.isEmpty()) {
+                this.isValid = isInRange(number) && isPositive(number);
+            }
         } else {
-            this.isValid = isRequired(null);
+            this.isValid = isRequired(number);
         }
         return this.isValid;
     }
