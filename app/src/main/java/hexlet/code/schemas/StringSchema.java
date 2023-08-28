@@ -15,12 +15,14 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
-    public void minLength(int minLen) {
+    public StringSchema minLength(int minLen) {
         this.minLength = minLen;
+        return this;
     }
 
-    public void contains(String suBstr) {
+    public StringSchema contains(String suBstr) {
         this.subString = suBstr;
+        return this;
     }
 
     public boolean isMinLength(Object obj) {

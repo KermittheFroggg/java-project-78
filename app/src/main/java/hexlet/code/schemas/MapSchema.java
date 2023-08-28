@@ -14,8 +14,9 @@ public class MapSchema {
     public MapSchema() {
     }
 
-    public void required() {
+    public MapSchema required() {
         this.required = true;
+        return this;
     }
 
     public boolean isRequired(Object obj) {
@@ -25,8 +26,9 @@ public class MapSchema {
         return true;
     }
 
-    public void sizeof(int size2) {
+    public MapSchema sizeof(int size2) {
         this.size = size2;
+        return this;
     }
 
     private boolean checkSize(Map map) {
@@ -43,9 +45,10 @@ public class MapSchema {
         return true;
     }
 
-    public void shape(Map<String, BaseSchema> map) {
+    public MapSchema shape(Map<String, BaseSchema> map) {
         this.shapeMap = new HashMap<>(map);
         this.shape = true;
+        return this;
     }
 
     public boolean isValid(Object map) {

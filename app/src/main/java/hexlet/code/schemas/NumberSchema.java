@@ -13,8 +13,9 @@ public class NumberSchema extends BaseSchema {
     public NumberSchema() {
     }
 
-    public void required() {
+    public NumberSchema required() {
         this.required = true;
+        return this;
     }
 
     public boolean isRequired(Object obj) {
@@ -36,10 +37,11 @@ public class NumberSchema extends BaseSchema {
         return false;
     }
 
-    public void range(int begin, int end) {
+    public NumberSchema range(int begin, int end) {
         for (int i = begin; i <= end; i++) {
             this.range.add(i);
         }
+        return this;
     }
 
     public boolean isInRange(Object obj) {
