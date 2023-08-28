@@ -10,7 +10,7 @@ public class StringSchema extends BaseSchema {
     public StringSchema() {
     }
 
-    public BaseSchema required() {
+    public StringSchema required() {
         this.required = true;
         return this;
     }
