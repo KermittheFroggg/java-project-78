@@ -1,10 +1,15 @@
 package hexlet.code.schemas;
+
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class MapSchema {
     boolean isValid = true;
     boolean required = false;
     private int size = -1;
+    boolean shape = false;
+    Map<String, BaseSchema> shapeMap = new HashMap();
 
     public MapSchema() {
     }
@@ -23,6 +28,7 @@ public class MapSchema {
     public void sizeof(int size2) {
         this.size = size2;
     }
+
     private boolean checkSize(Map map) {
         if (map.size() >= size) {
             return true;
@@ -37,6 +43,11 @@ public class MapSchema {
         return true;
     }
 
+    public void shape(Map<String, BaseSchema> map) {
+        this.shapeMap = new HashMap<>(map);
+        this.shape = true;
+    }
+
     public boolean isValid(Object map) {
         if (map != null) {
             if (isNotMap(map)) {
@@ -44,6 +55,19 @@ public class MapSchema {
             }
             if (size != 0) {
                 this.isValid = checkSize((Map) map);
+            }
+            if (size != 0) {
+                this.isValid = checkSize((Map) map);
+            }
+            if (shape) {
+                Map<String, BaseSchema> map2 = new HashMap<>((Map) map);
+                for (Entry<String, BaseSchema> entry : map2.entrySet()) {
+                    if (shapeMap.containsKey(entry.getKey())) {
+                        if (!shapeMap.get(entry.getKey()).isValid(entry.getValue())) {
+                            return false;
+                        }
+                    }
+                }
             }
         } else {
             this.isValid = isRequired(null);

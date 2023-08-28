@@ -10,8 +10,9 @@ public class StringSchema extends BaseSchema {
     public StringSchema() {
     }
 
-    public void required() {
+    public BaseSchema required() {
         this.required = true;
+        return this;
     }
 
     public void minLength(int minLen) {

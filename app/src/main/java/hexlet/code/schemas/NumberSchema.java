@@ -24,8 +24,9 @@ public class NumberSchema extends BaseSchema {
         return true;
     }
 
-    public void positive() {
+    public BaseSchema positive() {
         this.positive = true;
+        return this;
     }
 
     public boolean isPositive(Object obj) {
