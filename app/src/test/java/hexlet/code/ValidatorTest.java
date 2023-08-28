@@ -74,6 +74,7 @@ public class ValidatorTest {
         assertThat(schema.isValid(4)).isEqualTo(true);
         assertThat(schema.isValid(23)).isEqualTo(false);
     }
+
     @Test
     public void testValidatorNumberSchema2() {
 
@@ -91,8 +92,8 @@ public class ValidatorTest {
         assertThat(schema.positive().isValid(null)).isEqualTo(true);
         assertThat(schema.required().isValid(null)).isEqualTo(false);
         assertThat(schema.isValid(0)).isEqualTo(false);
-
     }
+
     @Test
     public void testValidatorMapSchema() {
         Validator v = new Validator();

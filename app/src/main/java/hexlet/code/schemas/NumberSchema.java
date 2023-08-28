@@ -7,6 +7,7 @@ public class NumberSchema extends BaseSchema {
     boolean isValid = true;
     boolean required = false;
     boolean positive = false;
+    boolean rangeB = false;
 
     public List<Integer> range = new ArrayList<>();
 
@@ -19,7 +20,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isRequired(Object obj) {
-        if (required && obj == null) {
+        if (required && (obj == null)) {
             return false;
         }
         return true;
@@ -31,7 +32,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isPositive(Object obj) {
-        if ((Integer) obj > 0) {
+        if (positive && (Integer) obj > 0) {
             return true;
         }
         return false;
@@ -40,6 +41,7 @@ public class NumberSchema extends BaseSchema {
     public NumberSchema range(int begin, int end) {
         for (int i = begin; i <= end; i++) {
             this.range.add(i);
+            this.rangeB = true;
         }
         return this;
     }
@@ -67,11 +69,11 @@ public class NumberSchema extends BaseSchema {
             if (positive) {
                 this.isValid = isPositive(number);
             }
-            if (!range.isEmpty()) {
+            if (rangeB) {
                 this.isValid = isInRange(number);
             }
-            if (positive && !range.isEmpty()) {
-                this.isValid = isInRange(number) && isPositive(number);
+            if (positive && rangeB) {
+                this.isValid = (isInRange(number)) && (isPositive(number));
             }
         } else {
             this.isValid = isRequired(null);
