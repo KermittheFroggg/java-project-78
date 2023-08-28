@@ -31,7 +31,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isPositive(Object obj) {
-        if (positive && ((Integer) obj > 0)) {
+        if ((Integer) obj > 0) {
             return true;
         }
         return false;
@@ -74,7 +74,7 @@ public class NumberSchema extends BaseSchema {
                 this.isValid = isInRange(number) && isPositive(number);
             }
         } else {
-            this.isValid = isRequired(number);
+            this.isValid = isRequired(null);
         }
         return this.isValid;
     }
