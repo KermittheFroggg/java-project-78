@@ -54,6 +54,7 @@ public class StringSchema extends BaseSchema {
     }
 
     public boolean isValid(Object string) {
+        this.isValid = true;
         if (string != null) {
             if (isNotString(string)) {
                 return false;
@@ -61,7 +62,7 @@ public class StringSchema extends BaseSchema {
             if (minLength != 0) {
                 this.isValid = isMinLength(string);
             }
-            if (subString.equals("")) {
+            if (string.equals("")) {
                 this.isValid = isRequired(string);
             }
             if (!subString.equals("")) {

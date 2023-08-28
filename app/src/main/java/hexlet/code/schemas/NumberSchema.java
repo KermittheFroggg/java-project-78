@@ -59,6 +59,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isValid(Object number) {
+        this.isValid = true;
         if (number != null) {
             if (isNotNumber(number)) {
                 return false;

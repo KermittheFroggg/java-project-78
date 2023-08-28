@@ -52,6 +52,7 @@ public class MapSchema {
     }
 
     public boolean isValid(Object map) {
+        this.isValid = true;
         if (map != null) {
             if (isNotMap(map)) {
                 return false;
