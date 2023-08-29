@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NumberSchema extends BaseSchema {
-    boolean isValid = true;
     boolean required = false;
     boolean positive = false;
     boolean rangeB = false;
@@ -67,15 +66,9 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isValid(Object number) {
-        this.isValid = true;
-        if (number != null) {
-            if (isNotNumber(number)) {
-                return false;
-            }
-            this.isValid = isPositive(number) && isInRange(number);
-        } else {
-            this.isValid = isRequired(null) && isPositive(null) && isInRange(null);
+        if (isNotNumber(number) && number != null) {
+            return false;
         }
-        return this.isValid;
+        return isRequired(number) && isPositive(number) && isInRange(number);
     }
 }
