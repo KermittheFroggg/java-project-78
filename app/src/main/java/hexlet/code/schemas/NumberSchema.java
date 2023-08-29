@@ -61,7 +61,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isNotNumber(Object obj) {
-        if (obj instanceof Integer) {
+        if (obj instanceof Number) {
             return false;
         }
         return true;
