@@ -20,7 +20,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isRequired(Object obj) {
-        if (required && (obj == null)) {
+        if (required && obj == null) {
             return false;
         }
         return true;
@@ -32,10 +32,10 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isPositive(Object obj) {
-        if (positive && (Integer) obj > 0) {
-            return true;
+        if (positive) {
+            return (Integer) obj > 0;
         }
-        return false;
+        return true;
     }
 
     public NumberSchema range(int begin, int end) {
@@ -47,10 +47,10 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isInRange(Object obj) {
-        if (range.contains(obj)) {
-            return true;
+        if (rangeB) {
+            return range.contains(obj);
         }
-        return false;
+        return true;
     }
 
     public boolean isNotNumber(Object obj) {
@@ -66,15 +66,7 @@ public class NumberSchema extends BaseSchema {
             if (isNotNumber(number)) {
                 return false;
             }
-            if (positive) {
-                this.isValid = isPositive(number);
-            }
-            if (rangeB) {
-                this.isValid = isInRange(number);
-            }
-            if (positive && rangeB) {
-                this.isValid = (isInRange(number)) && (isPositive(number));
-            }
+            this.isValid = isPositive(number) && isInRange(number);
         } else {
             this.isValid = isRequired(null);
         }
