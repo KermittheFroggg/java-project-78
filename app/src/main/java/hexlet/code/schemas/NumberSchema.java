@@ -33,7 +33,10 @@ public class NumberSchema extends BaseSchema {
 
     public boolean isPositive(Object obj) {
         if (positive) {
-            return obj == null || (Integer) obj > 0;
+            if (obj == null) {
+                return true;
+            }
+            return (Integer) obj > 0;
         }
         return true;
     }
@@ -48,7 +51,10 @@ public class NumberSchema extends BaseSchema {
 
     public boolean isInRange(Object obj) {
         if (rangeB) {
-            return obj == null || range.contains(obj);
+            if (obj == null) {
+                return true;
+            }
+            return range.contains(obj);
         }
         return true;
     }
@@ -68,7 +74,7 @@ public class NumberSchema extends BaseSchema {
             }
             this.isValid = isPositive(number) && isInRange(number);
         } else {
-            this.isValid = isRequired(null) && (isPositive(null) || isInRange(null));
+            this.isValid = isRequired(null) && isPositive(null) && isInRange(null);
         }
         return this.isValid;
     }
