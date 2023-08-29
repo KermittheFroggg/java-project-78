@@ -4,33 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NumberSchema extends BaseSchema {
-    boolean required = false;
-    boolean positive = false;
-    boolean rangeB = false;
+    private boolean required = false;
+    private boolean positive = false;
+    private boolean rangeB = false;
 
-    public List<Integer> range;
+    private List<Integer> range;
 
     public NumberSchema() {
     }
 
-    public NumberSchema required() {
+    public final NumberSchema required() {
         this.required = true;
         return this;
     }
 
-    public boolean isRequired(Object obj) {
+    public final boolean isRequired(Object obj) {
         if (required) {
             return isNumber(obj);
         }
         return true;
     }
 
-    public NumberSchema positive() {
+    public final NumberSchema positive() {
         this.positive = true;
         return this;
     }
 
-    public boolean isPositive(Object obj) {
+    public final boolean isPositive(Object obj) {
         if (positive) {
             if (obj == null) {
                 return true;
@@ -40,7 +40,7 @@ public class NumberSchema extends BaseSchema {
         return true;
     }
 
-    public NumberSchema range(int begin, int end) {
+    public final NumberSchema range(int begin, int end) {
         this.range = new ArrayList<>();
         for (int i = begin; i <= end; i++) {
             this.range.add(i);
@@ -49,7 +49,7 @@ public class NumberSchema extends BaseSchema {
         return this;
     }
 
-    public boolean isInRange(Object obj) {
+    public final boolean isInRange(Object obj) {
         if (rangeB) {
             if (obj == null) {
                 return true;
@@ -59,14 +59,14 @@ public class NumberSchema extends BaseSchema {
         return true;
     }
 
-    public boolean isNumber(Object obj) {
+    public final boolean isNumber(Object obj) {
         if (obj instanceof Number) {
             return true;
         }
         return false;
     }
 
-    public boolean isValid(Object number) {
+    public final boolean isValid(Object number) {
         if (!isNumber(number) && number != null) {
             return false;
         }
