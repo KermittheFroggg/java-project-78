@@ -48,7 +48,7 @@ public class NumberSchema extends BaseSchema {
 
     public boolean isInRange(Object obj) {
         if (rangeB) {
-            return range.contains(obj);
+            return obj == null || range.contains(obj);
         }
         return true;
     }
@@ -68,7 +68,7 @@ public class NumberSchema extends BaseSchema {
             }
             this.isValid = isPositive(number) && isInRange(number);
         } else {
-            this.isValid = isRequired(null) && isPositive(null);
+            this.isValid = isRequired(null) && isPositive(null) && isInRange(null);
         }
         return this.isValid;
     }
