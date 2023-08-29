@@ -19,8 +19,8 @@ public class NumberSchema extends BaseSchema {
     }
 
     public boolean isRequired(Object obj) {
-        if (required && obj == null) {
-            return false;
+        if (required) {
+            return isNumber(obj);
         }
         return true;
     }
@@ -50,6 +50,9 @@ public class NumberSchema extends BaseSchema {
 
     public boolean isInRange(Object obj) {
         if (rangeB) {
+            if (obj == null) {
+                return true;
+            }
             return range.contains(obj);
         }
         return true;
