@@ -8,7 +8,7 @@ public class NumberSchema extends BaseSchema {
     boolean positive = false;
     boolean rangeB = false;
 
-    public List<Integer> range = new ArrayList<>();
+    public List<Integer> range;
 
     public NumberSchema() {
     }
@@ -41,6 +41,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema range(int begin, int end) {
+        this.range = new ArrayList<>();
         for (int i = begin; i <= end; i++) {
             this.range.add(i);
             this.rangeB = true;

@@ -95,7 +95,18 @@ public class ValidatorTest {
         schema.range(-4, 17);
         assertThat(schema.isValid(-3)).isEqualTo(false);
         assertThat(schema.isValid("5")).isEqualTo(false);
+    }
 
+    @Test
+    public void testValidatorNumberSchema3() {
+
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
+
+        assertThat(schema.isValid(null)).isEqualTo(true);
+        assertThat(schema.isValid(0)).isEqualTo(true);
+        assertThat(schema.range(-5, -1).isValid(-3)).isEqualTo(true);
+        assertThat(schema.range(5, 10).isValid(-3)).isEqualTo(false);
     }
 
     @Test
