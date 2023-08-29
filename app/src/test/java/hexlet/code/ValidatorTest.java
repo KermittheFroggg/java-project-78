@@ -92,6 +92,8 @@ public class ValidatorTest {
         assertThat(schema.positive().isValid(null)).isEqualTo(true);
         assertThat(schema.required().isValid(null)).isEqualTo(false);
         assertThat(schema.isValid(0)).isEqualTo(false);
+        schema.range(-4, 17);
+        assertThat(schema.isValid(-3)).isEqualTo(false);
     }
 
     @Test
