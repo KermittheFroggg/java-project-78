@@ -26,13 +26,6 @@ public class NumberSchema extends BaseSchema {
         return true;
     }
 
-    public boolean isRequired() {
-        if (required) {
-            return false;
-        }
-        return true;
-    }
-
     public NumberSchema positive() {
         this.positive = true;
         return this;
@@ -77,12 +70,6 @@ public class NumberSchema extends BaseSchema {
         } else {
             this.isValid = isRequired(null);
         }
-        return this.isValid;
-    }
-
-    public boolean isValid() {
-        this.isValid = true;
-        this.isValid = isRequired();
         return this.isValid;
     }
 }
