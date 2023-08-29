@@ -68,7 +68,7 @@ public class NumberSchema extends BaseSchema {
             }
             this.isValid = isPositive(number) && isInRange(number);
         } else {
-            this.isValid = isRequired(null) && isPositive(null) && isInRange(null);
+            this.isValid = isRequired(null) && (isPositive(null) || isInRange(null));
         }
         return this.isValid;
     }
