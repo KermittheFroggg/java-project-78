@@ -2,7 +2,6 @@ package hexlet.code.schemas;
 
 public class StringSchema extends BaseSchema {
 
-    boolean isValid = true;
     int minLength;
     String subString = "";
     boolean required = false;
@@ -26,17 +25,23 @@ public class StringSchema extends BaseSchema {
     }
 
     public boolean isMinLength(Object obj) {
-        if (String.valueOf(obj).length() > minLength) {
+        if (obj == null) {
             return true;
         }
-        return false;
+        if (minLength != 0) {
+            return String.valueOf(obj).length() > minLength;
+        }
+        return true;
     }
 
     public boolean containsSubString(Object obj) {
-        if (String.valueOf(obj).contains(subString)) {
+        if (obj == null) {
             return true;
         }
-        return false;
+        if (!subString.equals("")) {
+            return String.valueOf(obj).contains(subString);
+        }
+        return true;
     }
 
     public boolean isRequired(Object obj) {
@@ -46,31 +51,17 @@ public class StringSchema extends BaseSchema {
         return true;
     }
 
-    public boolean isNotString(Object obj) {
+    public boolean isString(Object obj) {
         if (obj instanceof String) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean isValid(Object string) {
-        this.isValid = true;
-        if (string != null) {
-            if (isNotString(string)) {
-                return false;
-            }
-            if (minLength != 0) {
-                this.isValid = isMinLength(string);
-            }
-            if (string.equals("")) {
-                this.isValid = isRequired(string);
-            }
-            if (!subString.equals("")) {
-                this.isValid = containsSubString(string);
-            }
-        } else {
-            isValid = isRequired(null);
+        if (!isString(string) && string != null) {
+            return false;
         }
-        return isValid;
+        return isRequired(string) && isMinLength(string) && containsSubString(string);
     }
 }
