@@ -50,9 +50,6 @@ public class NumberSchema extends BaseSchema {
 
     public boolean isInRange(Object obj) {
         if (rangeB) {
-            if (obj == null) {
-                return true;
-            }
             return range.contains(obj);
         }
         return true;

@@ -60,9 +60,6 @@ public class MapSchema {
             if (size != 0) {
                 this.isValid = checkSize((Map) map);
             }
-            if (size != 0) {
-                this.isValid = checkSize((Map) map);
-            }
             if (shape) {
                 Map<String, BaseSchema> map2 = new HashMap<>((Map) map);
                 for (Entry<String, BaseSchema> entry : map2.entrySet()) {
