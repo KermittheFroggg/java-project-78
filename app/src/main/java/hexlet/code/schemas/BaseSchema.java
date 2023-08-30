@@ -2,9 +2,11 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public abstract class BaseSchema {
+public class BaseSchema {
 
-    public abstract boolean isValid(Object obj);
+    public boolean isValid(Object obj) {
+        return true;
+    }
 
     public boolean isInstance(Object obj, String inst) {
         switch (inst) {
