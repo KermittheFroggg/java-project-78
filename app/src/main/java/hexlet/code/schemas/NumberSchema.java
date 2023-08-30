@@ -67,7 +67,7 @@ public class NumberSchema extends BaseSchema {
     }
 
     public final boolean isValid(Object number) {
-        if (!isNumber(number) && number != null) {
+        if (!isInstance(number, "Number")) {
             return false;
         }
         return isRequired(number) && isPositive(number) && isInRange(number);

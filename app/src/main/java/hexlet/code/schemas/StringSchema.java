@@ -51,15 +51,8 @@ public class StringSchema extends BaseSchema {
         return true;
     }
 
-    public final boolean isString(Object obj) {
-        if (obj instanceof String) {
-            return true;
-        }
-        return false;
-    }
-
     public final boolean isValid(Object string) {
-        if (!isString(string) && string != null) {
+        if (!isInstance(string, "String")) {
             return false;
         }
         return isRequired(string) && isMinLength(string) && containsSubString(string);
