@@ -4,11 +4,11 @@ import java.util.Map;
 
 public abstract class BaseSchema {
 
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         return true;
     }
 
-    public boolean isInstance(Object obj, String inst) {
+    public final boolean isInstance(Object obj, String inst) {
         boolean isInstance = false;
         switch (inst) {
             case "String":
