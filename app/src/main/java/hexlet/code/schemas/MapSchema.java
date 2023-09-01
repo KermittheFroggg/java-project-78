@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MapSchema {
-    private boolean isValid = true;
+public class MapSchema extends BaseSchema {
     private boolean required = false;
     private int size = -1;
     private boolean shape = false;
@@ -31,18 +30,14 @@ public class MapSchema {
         return this;
     }
 
-    public final boolean checkSize(Map map) {
-        if (map.size() >= size) {
+    public final boolean checkSize(Object obj) {
+        if (obj == null) {
+            return true;
+        }
+        if (((Map) obj).size() >= size) {
             return true;
         }
         return false;
-    }
-
-    public final boolean isNotMap(Object obj) {
-        if (obj instanceof Map) {
-            return false;
-        }
-        return true;
     }
 
     public final MapSchema shape(Map<String, BaseSchema> map) {
@@ -51,28 +46,24 @@ public class MapSchema {
         return this;
     }
 
-    public final boolean isValid(Object map) {
-        this.isValid = true;
-        if (map != null) {
-            if (isNotMap(map)) {
-                return false;
-            }
-            if (size != 0) {
-                this.isValid = checkSize((Map) map);
-            }
-            if (shape) {
-                Map<String, BaseSchema> map2 = new HashMap<>((Map) map);
-                for (Entry<String, BaseSchema> entry : map2.entrySet()) {
-                    if (shapeMap.containsKey(entry.getKey())) {
-                        if (!shapeMap.get(entry.getKey()).isValid(entry.getValue())) {
-                            return false;
-                        }
+    public final boolean checkShape(Object obj) {
+        if (shape) {
+            Map<String, BaseSchema> map2 = new HashMap<>((Map) obj);
+            for (Entry<String, BaseSchema> entry : map2.entrySet()) {
+                if (shapeMap.containsKey(entry.getKey())) {
+                    if (!shapeMap.get(entry.getKey()).isValid(entry.getValue())) {
+                        return false;
                     }
                 }
             }
-        } else {
-            this.isValid = isRequired(null);
         }
-        return this.isValid;
+        return true;
+    }
+
+    public final boolean isValid(Object obj) {
+        if (!isInstance(obj, "Map")) {
+            return false;
+        }
+        return isRequired(obj) && checkSize(obj) && checkShape(obj);
     }
 }
