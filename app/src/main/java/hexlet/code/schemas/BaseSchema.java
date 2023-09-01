@@ -4,9 +4,7 @@ import java.util.Map;
 
 public abstract class BaseSchema {
 
-    public final boolean isValid(Object obj) {
-        return true;
-    }
+    public abstract boolean isValid(Object obj);
 
     public final boolean isInstance(Object obj, String inst) {
         boolean isInstance = false;

@@ -60,10 +60,10 @@ public class MapSchema extends BaseSchema {
         return true;
     }
 
-    public final boolean isValid(Object obj) {
-        if (!isInstance(obj, "Map")) {
+    public final boolean isValid(Object map) {
+        if (!isInstance(map, "Map")) {
             return false;
         }
-        return isRequired(obj) && checkSize(obj) && checkShape(obj);
+        return isRequired(map) && checkSize(map) && checkShape(map);
     }
 }
