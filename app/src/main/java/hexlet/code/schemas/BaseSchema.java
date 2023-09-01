@@ -9,25 +9,26 @@ public abstract class BaseSchema {
     }
 
     public boolean isInstance(Object obj, String inst) {
+        boolean isInstance = false;
         switch (inst) {
             case "String":
                 if (obj instanceof String || obj == null) {
-                    return true;
+                    isInstance = true;
                 }
                 break;
             case "Number":
                 if (obj instanceof Number || obj == null) {
-                    return true;
+                    isInstance = true;
                 }
                 break;
             case "Map":
                 if (obj instanceof Map || obj == null) {
-                    return true;
+                    isInstance = true;
                 }
                 break;
             default:
-                return false;
+                isInstance = false;
         }
-        return false;
+        return isInstance;
     }
 }
