@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class BaseSchema {
+public abstract class BaseSchema {
 
     public boolean isValid(Object obj) {
         return true;
